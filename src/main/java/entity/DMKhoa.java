@@ -24,11 +24,14 @@ public class DMKhoa implements DMKhoaDAO {
             System.out.println("Enter nameKhoa colum to create: ");
             String createNameKhoa = scanner.next();
 
-            preparedStatement.setString(1,createKhoaID);
-            preparedStatement.setString(2,createNameKhoa);
-
-            int rowInsert = preparedStatement.executeUpdate();
-            System.out.println(rowInsert + " Colum delete done");
+            if (createKhoaID != null || createKhoaID !=""){
+                preparedStatement.setString(1,createKhoaID);
+                preparedStatement.setString(2,createNameKhoa);
+                int rowInsert = preparedStatement.executeUpdate();
+                System.out.println(rowInsert + " Colum create done");
+            } else {
+                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -115,6 +118,60 @@ public class DMKhoa implements DMKhoaDAO {
 
     @Override
     public void createManyKhoa() {
+        String sqlInsert = "INSERT INTO DMKHOA VALUES(?, ?)";
+        try (
+                Connection connection = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/student",
+                        "root", ""
+                );
 
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
+        ) {
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter khoaID colum to create: ");
+            String createKhoaID = scanner.next();
+            System.out.println("Enter nameKhoa colum to create: ");
+            String createNameKhoa = scanner.next();
+
+            System.out.println("Enter khoaID 2 colum to create: ");
+            String createKhoaID1 = scanner.next();
+            System.out.println("Enter nameKhoa 2 colum to create: ");
+            String createNameKhoa1 = scanner.next();
+
+            System.out.println("Enter khoaID 3 colum to create: ");
+            String createKhoaID2 = scanner.next();
+            System.out.println("Enter nameKhoa 3 colum to create: ");
+            String createNameKhoa2 = scanner.next();
+
+            if (createKhoaID != null || createKhoaID !=""){
+                preparedStatement.setString(1,createKhoaID);
+                preparedStatement.setString(2,createNameKhoa);
+                int rowInsert = preparedStatement.executeUpdate();
+                System.out.println(rowInsert + " Colum create done");
+            } else {
+                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+            }
+
+            if (createKhoaID1 != null || createKhoaID1 !=""){
+                preparedStatement.setString(1,createKhoaID1);
+                preparedStatement.setString(2,createNameKhoa1);
+                int rowInsert = preparedStatement.executeUpdate();
+                System.out.println(rowInsert + " Colum create done");
+            } else {
+                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+            }
+
+            if (createKhoaID2 != null || createKhoaID2 !=""){
+                preparedStatement.setString(1,createKhoaID2);
+                preparedStatement.setString(2,createNameKhoa2);
+                int rowInsert = preparedStatement.executeUpdate();
+                System.out.println(rowInsert + " Colum create done");
+            } else {
+                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
