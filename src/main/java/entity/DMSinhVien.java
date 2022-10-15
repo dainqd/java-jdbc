@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.Scanner;
 
+import static java.lang.System.out;
+
 public class DMSinhVien implements DMSinhVienDAO {
     @Override
     public void createSinhVien() {
@@ -15,23 +17,23 @@ public class DMSinhVien implements DMSinhVienDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);) {
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter Sinh Vien colum to create: ");
+            out.println("Enter Sinh Vien colum to create: ");
             String createSinhVienID = scanner.next();
-            System.out.println("Enter SinhVienID colum to create: ");
+            out.println("Enter SinhVienID colum to create: ");
             String createHoSinhVien = scanner.next();
-            System.out.println("Enter HoSinhVien colum to create: ");
+            out.println("Enter HoSinhVien colum to create: ");
             String createNameSinhVien = scanner.next();
-            System.out.println("Enter NameSinhVien colum to create: ");
+            out.println("Enter NameSinhVien colum to create: ");
             String createGenderSinhVien = scanner.next();
-            System.out.println("Enter GenderSinhVien colum to create: ");
+            out.println("Enter GenderSinhVien colum to create: ");
             Date createBirthdaySinhVien = new Date();
-            System.out.println("Enter BirthDaySinhVien colum to create: ");
+            out.println("Enter BirthDaySinhVien colum to create: ");
             String createNoisinhSinhVien = scanner.next();
-            System.out.println("Enter NoisinhSinhVien colum to create: ");
+            out.println("Enter NoisinhSinhVien colum to create: ");
             String createMaKhoaSinhVien = scanner.next();
-            System.out.println("Enter MakhoaSinhVien colum to create: ");
+            out.println("Enter MakhoaSinhVien colum to create: ");
             String createHocBongSinhVien = scanner.next();
-            System.out.println("Enter HocBongSinhVien colum to create: ");
+            out.println("Enter HocBongSinhVien colum to create: ");
 
             if (createSinhVienID != null || createSinhVienID != "") {
                 preparedStatement.setString(1, createSinhVienID);
@@ -44,9 +46,9 @@ public class DMSinhVien implements DMSinhVienDAO {
                 preparedStatement.setString(7, createMaKhoaSinhVien);
                 preparedStatement.setString(8, createHocBongSinhVien);
                 int rowInsert = preparedStatement.executeUpdate();
-                System.out.println(rowInsert + " Colum create done");
+                out.println(rowInsert + " Colum create done");
             } else {
-                System.out.printf("Vui long nhap lai Sinh Vien ");
+                out.printf("Vui long nhap lai Sinh Vien ");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -96,9 +98,7 @@ public class DMSinhVien implements DMSinhVienDAO {
     public void deleteSinhVien() {
         String sqlDelete = "delete from dmSV where maSV = ?";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "");
-
              PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete);) {
-
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter khoaID colum to delete: ");
             String idDelete = scanner.next();
@@ -115,18 +115,15 @@ public class DMSinhVien implements DMSinhVienDAO {
 
     @Override
     public void readSinhVien() {
-        String sqlPrint = "select * from dmkhoa";
+        String sqlPrint = "select * from dmSV";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "");
-
              PreparedStatement preparedStatement = connection.prepareStatement(sqlPrint);) {
-
             ResultSet resultset = preparedStatement.executeQuery();
             while (resultset.next()) {
                 String khoaID = resultset.getString("khoaID");
                 String khoaName = resultset.getString("nameKhoa");
                 System.out.println("DMKhoa:" + khoaID + ", " + khoaName);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
