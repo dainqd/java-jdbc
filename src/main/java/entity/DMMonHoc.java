@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class DMMonHoc implements DMMonHocDAO {
     @Override
     public void createMonHoc() {
-        String sqlInsert = "INSERT INTO DMKHOA VALUES(?, ?)";
+        String sqlInsert = "INSERT INTO dmmonhoc VALUES(?, ?)";
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/student",
@@ -19,18 +19,18 @@ public class DMMonHoc implements DMMonHocDAO {
         ) {
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter khoaID colum to create: ");
-            String createKhoaID = scanner.next();
-            System.out.println("Enter nameKhoa colum to create: ");
-            String createNameKhoa = scanner.next();
+            System.out.println("Enter monhocID colum to create: ");
+            String createMonhocID = scanner.next();
+            System.out.println("Enter monhoc colum to create: ");
+            String createMonhoc = scanner.next();
 
-            if (createKhoaID != null || createKhoaID !=""){
-                preparedStatement.setString(1,createKhoaID);
-                preparedStatement.setString(2,createNameKhoa);
+            if (createMonhocID != null || createMonhocID != "") {
+                preparedStatement.setString(1, createMonhocID);
+                preparedStatement.setString(2, createMonhoc);
                 int rowInsert = preparedStatement.executeUpdate();
                 System.out.println(rowInsert + " Colum create done");
             } else {
-                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+                System.out.printf("Vui long nhap lai MonhocID va mon hoc");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -39,7 +39,7 @@ public class DMMonHoc implements DMMonHocDAO {
 
     @Override
     public void updateMonHoc() {
-        String sqlUpdate = "UPDATE DMKHOA SET nameKhoa = ? WHERE khoaID = ?";
+        String sqlUpdate = "UPDATE dmmonhoc SET monhoc = ? WHERE monhocID = ?";
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/student",
@@ -51,12 +51,12 @@ public class DMMonHoc implements DMMonHocDAO {
 
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter khoaID colum to update: ");
-            String idKHOA = scanner.next();
+            String idMONHOC = scanner.next();
             System.out.println("Enter nameKhoa colum to update: ");
-            String updateNameKhoa = scanner.next();
+            String updateMonhoc = scanner.next();
 
-            preparedStatement.setString(1, updateNameKhoa);
-            preparedStatement.setString(2,idKHOA);
+            preparedStatement.setString(1, updateMonhoc);
+            preparedStatement.setString(2, idMONHOC);
 
             int rowDelete = preparedStatement.executeUpdate();
             System.out.println(rowDelete + " Colum update done");
@@ -68,7 +68,7 @@ public class DMMonHoc implements DMMonHocDAO {
 
     @Override
     public void deleteMonHoc() {
-        String sqlDelete = "delete from DMKhoa where khoaID = ?";
+        String sqlDelete = "delete from dmmonhoc where monhocID = ?";
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/student",
@@ -79,9 +79,9 @@ public class DMMonHoc implements DMMonHocDAO {
         ) {
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter khoaID colum to delete: ");
+            System.out.println("Enter monhocID colum to delete: ");
             String idDelete = scanner.next();
-            System.out.println("khoaID to delete is: " + idDelete);
+            System.out.println("monhocID to delete is: " + idDelete);
 
             preparedStatement.setString(1, idDelete);
             int rowDelete = preparedStatement.executeUpdate();
@@ -94,7 +94,7 @@ public class DMMonHoc implements DMMonHocDAO {
 
     @Override
     public void readMonHoc() {
-        String sqlPrint = "select * from dmkhoa";
+        String sqlPrint = "select * from dmMonhoc";
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/student",
@@ -106,9 +106,9 @@ public class DMMonHoc implements DMMonHocDAO {
 
             ResultSet resultset = preparedStatement.executeQuery();
             while (resultset.next()) {
-                String khoaID = resultset.getString("khoaID");
-                String khoaName = resultset.getString("nameKhoa");
-                System.out.println("DMKhoa:" + khoaID + ", " + khoaName);
+                String monhocID = resultset.getString("khoaID");
+                String monhoc = resultset.getString("nameKhoa");
+                System.out.println("DMKhoa:" + monhocID + ", " + monhoc);
             }
 
         } catch (SQLException e) {
@@ -118,7 +118,7 @@ public class DMMonHoc implements DMMonHocDAO {
 
     @Override
     public void createManyMonHoc() {
-        String sqlInsert = "INSERT INTO DMKHOA VALUES(?, ?)";
+        String sqlInsert = "INSERT INTO dmmonhoc VALUES(?, ?)";
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/student",
@@ -129,46 +129,46 @@ public class DMMonHoc implements DMMonHocDAO {
         ) {
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter khoaID colum to create: ");
-            String createKhoaID = scanner.next();
-            System.out.println("Enter nameKhoa colum to create: ");
-            String createNameKhoa = scanner.next();
+            System.out.println("Enter monhocID colum to create: ");
+            String createmonhocID = scanner.next();
+            System.out.println("Enter monhoc colum to create: ");
+            String createmonhoc = scanner.next();
 
-            System.out.println("Enter khoaID 2 colum to create: ");
-            String createKhoaID1 = scanner.next();
-            System.out.println("Enter nameKhoa 2 colum to create: ");
-            String createNameKhoa1 = scanner.next();
+            System.out.println("Enter monhocID 2 colum to create: ");
+            String createmonhocID1 = scanner.next();
+            System.out.println("Enter monhoc 2 colum to create: ");
+            String createmonhoc1 = scanner.next();
 
-            System.out.println("Enter khoaID 3 colum to create: ");
-            String createKhoaID2 = scanner.next();
-            System.out.println("Enter nameKhoa 3 colum to create: ");
-            String createNameKhoa2 = scanner.next();
+            System.out.println("Enter monhocID 3 colum to create: ");
+            String createmonhocID2 = scanner.next();
+            System.out.println("Enter monhoc 3 colum to create: ");
+            String createmonhoc2 = scanner.next();
 
-            if (createKhoaID != null || createKhoaID !=""){
-                preparedStatement.setString(1,createKhoaID);
-                preparedStatement.setString(2,createNameKhoa);
+            if (createmonhocID != null || createmonhocID != "") {
+                preparedStatement.setString(1, createmonhocID);
+                preparedStatement.setString(2, createmonhoc);
                 int rowInsert = preparedStatement.executeUpdate();
                 System.out.println(rowInsert + " Colum create done");
             } else {
-                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+                System.out.printf("Vui long nhap lai monhocID va monhoc");
             }
 
-            if (createKhoaID1 != null || createKhoaID1 !=""){
-                preparedStatement.setString(1,createKhoaID1);
-                preparedStatement.setString(2,createNameKhoa1);
+            if (createmonhocID1 != null || createmonhocID1 != "") {
+                preparedStatement.setString(1, createmonhocID1);
+                preparedStatement.setString(2, createmonhoc1);
                 int rowInsert = preparedStatement.executeUpdate();
                 System.out.println(rowInsert + " Colum create done");
             } else {
-                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+                System.out.printf("Vui long nhap lai monhocID va monhoc");
             }
 
-            if (createKhoaID2 != null || createKhoaID2 !=""){
-                preparedStatement.setString(1,createKhoaID2);
-                preparedStatement.setString(2,createNameKhoa2);
+            if (createmonhocID2 != null || createmonhocID2 != "") {
+                preparedStatement.setString(1, createmonhocID2);
+                preparedStatement.setString(2, createmonhoc2);
                 int rowInsert = preparedStatement.executeUpdate();
                 System.out.println(rowInsert + " Colum create done");
             } else {
-                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
+                System.out.printf("Vui long nhap lai monhocID va monhoc");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

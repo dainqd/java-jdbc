@@ -3,6 +3,8 @@ package entity;
 import dao.DMSinhVienDAO;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -26,7 +28,7 @@ public class DMSinhVien implements DMSinhVienDAO {
             out.println("Enter NameSinhVien colum to create: ");
             String createGenderSinhVien = scanner.next();
             out.println("Enter GenderSinhVien colum to create: ");
-            Date createBirthdaySinhVien = new Date();
+            String createBirthdaySinhVien = scanner.next();
             out.println("Enter BirthDaySinhVien colum to create: ");
             String createNoisinhSinhVien = scanner.next();
             out.println("Enter NoisinhSinhVien colum to create: ");
@@ -35,14 +37,17 @@ public class DMSinhVien implements DMSinhVienDAO {
             String createHocBongSinhVien = scanner.next();
             out.println("Enter HocBongSinhVien colum to create: ");
 
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = format.parse(createBirthdaySinhVien);
+            java.sql.Date datesql = new java.sql.Date(date.getTime());
+
             if (createSinhVienID != null || createSinhVienID != "") {
                 preparedStatement.setString(1, createSinhVienID);
                 preparedStatement.setString(2, createHoSinhVien);
                 preparedStatement.setString(3, createNameSinhVien);
                 preparedStatement.setString(4, createGenderSinhVien);
-                preparedStatement.setDate(5, (java.sql.Date) createBirthdaySinhVien);
+                preparedStatement.setDate(5, datesql);
                 preparedStatement.setString(6, createNoisinhSinhVien);
-
                 preparedStatement.setString(7, createMaKhoaSinhVien);
                 preparedStatement.setString(8, createHocBongSinhVien);
                 int rowInsert = preparedStatement.executeUpdate();
@@ -51,6 +56,8 @@ public class DMSinhVien implements DMSinhVienDAO {
                 out.printf("Vui long nhap lai Sinh Vien ");
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
@@ -120,9 +127,19 @@ public class DMSinhVien implements DMSinhVienDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(sqlPrint);) {
             ResultSet resultset = preparedStatement.executeQuery();
             while (resultset.next()) {
-                String khoaID = resultset.getString("khoaID");
-                String khoaName = resultset.getString("nameKhoa");
-                System.out.println("DMKhoa:" + khoaID + ", " + khoaName);
+                String SinhVienID = resultset.getString("khoaID");
+                String HoSinhVien = resultset.getString("nameKhoa");
+
+                String NameSinhVien = resultset.getString("khoaID");
+                String GenderSinhVien = resultset.getString("nameKhoa");
+
+                Date BirthdaySinhVien = resultset.getDate("khoaID");
+                String NoisinhSinhVien = resultset.getString("nameKhoa");
+
+                String MaKhoaSinhVien = resultset.getString("khoaID");
+                String HocBongSinhVien = resultset.getString("nameKhoa");
+
+                System.out.println("dmSV:" + SinhVienID + ", " + HoSinhVien + "," + NameSinhVien + "," + GenderSinhVien + "," + BirthdaySinhVien + "," + NoisinhSinhVien + "," + MaKhoaSinhVien + "," + HocBongSinhVien);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -131,48 +148,73 @@ public class DMSinhVien implements DMSinhVienDAO {
 
     @Override
     public void createManySinhVien() {
-        String sqlInsert = "INSERT INTO DMKHOA VALUES(?, ?)";
+        String sqlInsert = "INSERT INTO dmSV VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "");
-
              PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);) {
-
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter khoaID colum to create: ");
-            String createKhoaID = scanner.next();
-            System.out.println("Enter nameKhoa colum to create: ");
-            String createNameKhoa = scanner.next();
+            System.out.println("Enter Sinh Vien colum to create: ");
+            String createSinhVienID = scanner.next();
+            System.out.println("Enter SinhVienID colum to create: ");
+            String createHoSinhVien = scanner.next();
+            System.out.println("Enter HoSinhVien colum to create: ");
+            String createNameSinhVien = scanner.next();
+            System.out.println("Enter NameSinhVien colum to create: ");
+            String createGenderSinhVien = scanner.next();
+            System.out.println("Enter GenderSinhVien colum to create: ");
+            Date createBirthdaySinhVien = new Date();
+            System.out.println("Enter BirthDaySinhVien colum to create: ");
+            String createNoisinhSinhVien = scanner.next();
+            System.out.println("Enter NoisinhSinhVien colum to create: ");
+            String createMaKhoaSinhVien = scanner.next();
+            System.out.println("Enter MakhoaSinhVien colum to create: ");
+            String createHocBongSinhVien = scanner.next();
+            System.out.println("Enter HocBongSinhVien colum to create: ");
 
-            System.out.println("Enter khoaID 2 colum to create: ");
-            String createKhoaID1 = scanner.next();
-            System.out.println("Enter nameKhoa 2 colum to create: ");
-            String createNameKhoa1 = scanner.next();
 
-            System.out.println("Enter khoaID 3 colum to create: ");
-            String createKhoaID2 = scanner.next();
-            System.out.println("Enter nameKhoa 3 colum to create: ");
-            String createNameKhoa2 = scanner.next();
+            System.out.println("Enter Sinh Vien colum to create: ");
+            String createSinhVienID1 = scanner.next();
+            System.out.println("Enter SinhVienID colum to create: ");
+            String createHoSinhVien1 = scanner.next();
+            System.out.println("Enter HoSinhVien colum to create: ");
+            String createNameSinhVien1 = scanner.next();
+            System.out.println("Enter NameSinhVien colum to create: ");
+            String createGenderSinhVien1 = scanner.next();
+            System.out.println("Enter GenderSinhVien colum to create: ");
+            Date createBirthdaySinhVien1 = new Date();
+            System.out.println("Enter BirthDaySinhVien colum to create: ");
+            String createNoisinhSinhVien1 = scanner.next();
+            System.out.println("Enter NoisinhSinhVien colum to create: ");
+            String createMaKhoaSinhVien1 = scanner.next();
+            System.out.println("Enter MakhoaSinhVien colum to create: ");
+            String createHocBongSinhVien1 = scanner.next();
+            System.out.println("Enter HocBongSinhVien colum to create: ");
 
-            if (createKhoaID != null || createKhoaID != "") {
-                preparedStatement.setString(1, createKhoaID);
-                preparedStatement.setString(2, createNameKhoa);
+
+            if (createSinhVienID != null || createSinhVienID != "") {
+                preparedStatement.setString(1, createSinhVienID);
+                preparedStatement.setString(2, createNameSinhVien);
+                preparedStatement.setString(3, createHoSinhVien);
+                preparedStatement.setString(4, createGenderSinhVien);
+                preparedStatement.setDate(5, (java.sql.Date) createBirthdaySinhVien);
+                preparedStatement.setString(6, createNoisinhSinhVien);
+                preparedStatement.setString(7, createMaKhoaSinhVien);
+                preparedStatement.setString(8, createHocBongSinhVien);
+
                 int rowInsert = preparedStatement.executeUpdate();
                 System.out.println(rowInsert + " Colum create done");
             } else {
                 System.out.printf("Vui long nhap lai khoaID va nameKhoa");
             }
 
-            if (createKhoaID1 != null || createKhoaID1 != "") {
-                preparedStatement.setString(1, createKhoaID1);
-                preparedStatement.setString(2, createNameKhoa1);
-                int rowInsert = preparedStatement.executeUpdate();
-                System.out.println(rowInsert + " Colum create done");
-            } else {
-                System.out.printf("Vui long nhap lai khoaID va nameKhoa");
-            }
-
-            if (createKhoaID2 != null || createKhoaID2 != "") {
-                preparedStatement.setString(1, createKhoaID2);
-                preparedStatement.setString(2, createNameKhoa2);
+            if (createSinhVienID1 != null || createHoSinhVien1 != "") {
+                preparedStatement.setString(1, createSinhVienID1);
+                preparedStatement.setString(2, createNameSinhVien1);
+                preparedStatement.setString(3, createHoSinhVien1);
+                preparedStatement.setString(4, createGenderSinhVien1);
+                preparedStatement.setDate(5, (java.sql.Date) createBirthdaySinhVien1);
+                preparedStatement.setString(6, createNoisinhSinhVien1);
+                preparedStatement.setString(7, createMaKhoaSinhVien1);
+                preparedStatement.setString(8, createHocBongSinhVien1);
                 int rowInsert = preparedStatement.executeUpdate();
                 System.out.println(rowInsert + " Colum create done");
             } else {

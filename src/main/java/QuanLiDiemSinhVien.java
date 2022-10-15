@@ -17,5 +17,16 @@ public class QuanLiDiemSinhVien {
         dmKhoa.readKhoa();
 
 
+
+
+
+
+
+
+
+
+
+
+
     }
 }
